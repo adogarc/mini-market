@@ -15,7 +15,7 @@
                     <thead class="text-center">
                         <tr>
                             <th>Id</th>
-                            <th> Category </th>
+                            <th>Category </th>
                             <th>Product</th>
                             <th>Price</th>
                             <th>Expiration Date</th>
@@ -29,9 +29,10 @@
                             <td>{{product.idCategory}}</td>
                             <td>{{product.productName}}</td>
                             <td>{{product.price}}</td>
-                            <td>{{product.expiationDate | date:'dd/MM/YYYY hh:mm a'}}</td>
+                            <td>{{product.expiationDate}}</td>
                             <td>
-                                <button class="btn btn-danger me-2" >Eliminar</button>
+                                <button class="btn btn-danger" (click)="delete(product.id)" >Eliminar</button>
+                                <button class="btn btn-primary" (click)="onSelect(product)" data-toggle="modal" data-target="#modalUpdateProduct"  >Update</button>
                             </td>
                         </tr>
 
@@ -53,8 +54,12 @@
                         aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formPersonas">
+            <form id="formPersonas" (ngSubmit)="create()" [formGroup]="formulario">
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label for="idCategory" class="col-form-label">idCategory:</label>
+                        <input type="text" class="form-control" id="idCategory">
+                    </div>
                     <div class="form-group">
                         <label for="ProductName" class="col-form-label">Product:</label>
                         <input type="text" class="form-control" id="productName">
@@ -66,6 +71,43 @@
                     <div class="form-group">
                         <label for="expirationDate" class="col-form-label">Expiration date:</label>
                         <input type="date" class="form-control" id="expirationDate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="submit" id="mbtnSaveProduct" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Modal para UPDATE-->
+<div class="modal fade" id="modalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewProduct">Update Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formProducts" (ngSubmit)="update()" [formGroup]="UpdateForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ProductName" class="col-form-label">Product:</label>
+                        <input type="text" class="form-control" id="productName"
+                        formControlName="productName" [value]="productSelected.productName">
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input type="number" class="form-control" id="price"
+                        formControlName="price" [value]="productSelected.price">
+                    </div>
+                    <div class="form-group">
+                        <label for="expirationDate" class="col-form-label">Expiration date:</label>
+                        <input type="date" class="form-control" id="expirationDate"
+                        formControlName="expiationDate" [value]="productSelected.expiationDate">
                     </div>
                 </div>
                 <div class="modal-footer">

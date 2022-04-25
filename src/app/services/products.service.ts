@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { categories} from '../models/categories';
+import { products } from '../models/products';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,24 @@ export class ProductsService {
   getAll():Observable<any>{
     return this.http.get<any>('http://localhost:8000/products/all');
   }
-  Create(data: any){
-    return this.http.post('http://localhost:8000/products/add', data);
+  Create(products:any):Observable<any>{
+    products.id=0
+    let json =JSON.stringify(products);
+    let params=json;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post<products>('http://localhost:8000/products/add', params,httpOptions);
   }
- getCategory():Observable<categories[]>{
-    return this.http.get<categories[]>('http://localhost:8000/products/all');
+  update(products:any):Observable<any>{
+    let json =JSON.stringify(products);
+    let params=json;
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.post<products>('http://localhost:8000/products/add', params,httpOptions);
+  }
+  delete(products:any):Observable<any>{
+    return this.http.delete<products>(`http://localhost:8000/products/`+products);
   }
 }
