@@ -14,7 +14,7 @@ export class UserService{
     getAll():Observable<any>{
         return this.http.get<any>('http://localhost:8000/users/all')
       }
-      Crete(data: any){
+      Create(data: any){
         return this.http.post('http://localhost:8000/users/all',data)
       }
     }

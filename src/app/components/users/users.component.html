@@ -47,15 +47,19 @@
                         aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="formPersonas">
+            <form id="formPersonas" (ngSubmit)="create()" [formGroup]="formulario">
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="userName" class="col-form-label">Rol:</label>
+                        <input type="text" class="form-control" id="midRol" formControlName="idRol">
+                    </div>
+                    <div class="form-group">
                         <label for="userName" class="col-form-label">User Name:</label>
-                        <input type="text" class="form-control" id="mUserName">
+                        <input type="text" class="form-control" id="mUserName" formControlName="userName">
                     </div>
                     <div class="form-group">
                         <label for="mPassword" class="col-form-label">Password:</label>
-                        <input type="text" class="form-control" id="mPassword">
+                        <input type="text" class="form-control" id="mPassword" formControlName="password">
                     </div>
                 </div>
                 <div class="modal-footer">
